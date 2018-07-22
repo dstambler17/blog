@@ -1,0 +1,7 @@
+<h1>{{ category.title }}</h1>
+
+<ul>
+{% for entry in category.entry_set.all %}
+    <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
+{% endfor %}
+</ul>

@@ -1,0 +1,8 @@
+<h1>{{ section.title }}</h1>
+
+<ul>
+{% for entry in section.entry_set.all %}
+    <li>{{ section.title }} -- {{ entry.title }}</li>
+{% endfor %}
+</ul>
+

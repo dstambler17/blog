@@ -1,0 +1,11 @@
+<h1>Daniel Stambler Blog</h1>
+
+{% if newest_entry_list %}
+    <ul>
+    {% for entry in newest_entry_list %}
+        <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
