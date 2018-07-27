@@ -1,11 +1,29 @@
-{% if entry_list %}
+{% extends 'blog/base.html' %}
+{% load static %}
 
-    <h1> Archive List</h1>
+{% block title %} Archive{% endblock %}
+
+{% block content %}
+
+{% if entry_list %}
     <ul>
-    {% for entry in entry_list %}
-        <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
+    {% for entry in entry_list reversed %}
+        <li>
+          <div class="columns">
+          <div class="column is-one-third subtitle">
+              Title: <a href="{% url 'blog:detail' entry.id %}" >{{ entry.title }}</a>
+          </div>
+          <div class="column is-one-third subtitle">
+              Category: <a href="/categories/{{ entry.category.id }}/" >{{ entry.category }}</a>
+          </div>
+          <div class="column is-one-third subtitle">
+              Date: {{ entry.pub_date }}
+          </div>
+        </div>
+        </li>
     {% endfor %}
     </ul>
 {% else %}
     <p>The archive is empty</p>
 {% endif %}
+{% endblock %}

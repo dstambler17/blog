@@ -1,0 +1,36 @@
+.text-is-white{
+  color: white;
+}
+
+.text-is-center{
+  text-align: center;
+}
+
+.text-is-left{
+  text-align: left;
+}
+
+.text-is-blue{
+  color: #4173c1;
+}
+
+
+.is-content{
+    background-image: url("images/blueparchment.jpg");
+    min-height: 100%;
+    background: rgba(135, 206, 250, 0.5);
+}
+
+.has-background{
+  background-image: url("images/blueparchment.jpg");
+  border-bottom: 2px solid black;
+}
+
+.section-is-top{
+  background-image: url("images/map.jpg");
+	background-size: cover;
+  position: relative;
+  min-height: 97%;
+}
+
+/**CSS changes for nav bar **/

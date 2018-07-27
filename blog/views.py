@@ -1,11 +1,10 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
+#from django.urls import reverse
 from django.views import generic
 
-from django import forms
-from django.core.mail import send_mail
-from django.http import HttpResponse
+from .forms import ContactForm
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Entry, Category
 
 #Homepage, lists the most recent blogs and all categories below
@@ -19,22 +18,26 @@ class IndexView(generic.ListView):
 
 #about page (with links to personal site)
 def about(request):
-    return HttpResponse('about me')
+    return render(request, 'blog/about.html')
 
-def contact(forms.Form):
-    if form.is_valid():
-        subject = form.cleaned_data['subject']
-        message = form.cleaned_data['message']
-        sender = form.cleaned_data['sender']
-        cc_myself = form.cleaned_data['cc_myself']
+def contact(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['dstambl2@jhu.edu'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('http://127.0.0.1:8000/contact/')
+    return render(request, "blog/contact.html", {'form': form})
 
-        recipients = ['dstambl2@jhu.edu']
-        if cc_myself:
-            recipients.append(sender)
-
-        send_mail(subject, message, sender, recipients)
-        return HttpResponseRedirect('Thank you. I will contact you soon')
-
+def successView(request):
+    return HttpResponse('Thank you for your message! You will recieve a reply soon')
 
 #Lists the archive of all blog posts
 class BlogArchiveView(generic.ListView):

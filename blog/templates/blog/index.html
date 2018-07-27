@@ -1,11 +1,28 @@
-<h1>Daniel Stambler Blog</h1>
+{% extends 'blog/base.html' %}
+{% load static %}
 
-{% if newest_entry_list %}
+{% block title %} Recent Entries{% endblock %}
+
+{% block content %}
+  {% if newest_entry_list %}
     <ul>
-    {% for entry in newest_entry_list %}
-        <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
-    {% endfor %}
+      {% for entry in newest_entry_list reversed %}
+        <li>
+        <div class="columns">
+        <div class="column is-one-third subtitle">
+            Title: <a href="{% url 'blog:detail' entry.id %}" >{{ entry.title }}</a>
+        </div>
+        <div class="column is-one-third subtitle">
+            Category: <a href="/categories/{{ entry.category.id }}/" >{{ entry.category }}</a>
+        </div>
+        <div class="column is-one-third subtitle">
+            Date: {{ entry.pub_date }}
+        </div>
+      </div>
+          </li>
+      {% endfor %}
     </ul>
-{% else %}
+  {% else %}
     <p>No posts are available.</p>
-{% endif %}
+  {% endif %}
+{% endblock %}

@@ -7,7 +7,7 @@ from django.utils import timezone
 class Category(models.Model):
 	title = models.CharField(max_length=100, unique=True)
 	slug = models.SlugField(max_length=100, db_index=True)
-
+	
 	def __str__(self):
 		return self.title
 
@@ -26,7 +26,7 @@ class Entry(models.Model):
 	pub_date = models.DateField('date published')
 	tags = models.ManyToManyField(Tag)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
-	
+
 	def __str__(self):
 		return self.title
 
@@ -37,4 +37,3 @@ class Entry(models.Model):
 	def get_year(self):
 		thedate = self.pub_date
 		return thedate.strftime("%Y")
-

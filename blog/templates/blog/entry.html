@@ -1,1 +1,13 @@
-<h1>{{ entry.title }}</h1>
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %} {{ entry.title }}{% endblock %}
+
+{% block content %}
+<div class = "text-is-center">{{ entry.pub_date }}</div>
+<p class = "text-is-center">{{ entry.category }}</p>
+<br/>
+<p>{{ entry.body }}</p>
+
+
+{% endblock %}
