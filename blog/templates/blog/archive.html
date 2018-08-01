@@ -17,7 +17,7 @@
               Category: <a href="/categories/{{ entry.category.slug }}/" >{{ entry.category }}</a>
           </div>
           <div class="column is-one-third subtitle">
-              Date: {{ entry.pub_date }}
+              Date: <a href="/year/{{ entry.pub_date|date:"Y"}}/{{ entry.pub_date|date:"n" }}" >{{ entry.pub_date }}</a>
           </div>
         </div>
         </li>
