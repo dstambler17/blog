@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %} {% if month %} {{month}} {% endif %} {{year}} {% endblock %}
+
+{% block content %}
+<ul>
+{% for entry in date_list %}
+    <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 #from django.urls import reverse
 from django.views import generic
 
@@ -6,6 +6,8 @@ from .forms import ContactForm
 from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Entry, Category
+
+import calendar
 
 #Homepage, lists the most recent blogs and all categories below
 class IndexView(generic.ListView):
@@ -15,6 +17,16 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Return the last five published questions."""
         return Entry.objects.order_by('pub_date')[:5]
+
+
+def yearView(request, year = None):
+    date_list = Entry.objects.filter(pub_date__year=year)
+    return render(request,'blog/date.html',{'date_list': date_list, 'year' : year})
+
+def monthView(request, year = None, month= None):
+    date_list = Entry.objects.filter(pub_date__year=year, pub_date__month = month)
+    full_month = calendar.month_name[month]
+    return render(request,'blog/date.html',{'date_list': date_list, 'year' : year, 'month' : full_month})
 
 #about page (with links to personal site)
 def about(request):
@@ -45,7 +57,7 @@ class BlogArchiveView(generic.ListView):
     context_object_name = 'entry_list'
 
     def get_queryset(self):
-        return Entry.objects.all()
+        return Entry.objects.order_by('pub_date')
 
 #Lists all blogs in a given category
 class CategoryView(generic.DetailView):

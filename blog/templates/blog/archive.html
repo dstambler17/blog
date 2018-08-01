@@ -11,10 +11,10 @@
         <li>
           <div class="columns">
           <div class="column is-one-third subtitle">
-              Title: <a href="{% url 'blog:detail' entry.id %}" >{{ entry.title }}</a>
+              Title: <a href="{% url 'blog:detail' entry.slug %}" >{{ entry.title }}</a>
           </div>
           <div class="column is-one-third subtitle">
-              Category: <a href="/categories/{{ entry.category.id }}/" >{{ entry.category }}</a>
+              Category: <a href="/categories/{{ entry.category.slug }}/" >{{ entry.category }}</a>
           </div>
           <div class="column is-one-third subtitle">
               Date: {{ entry.pub_date }}

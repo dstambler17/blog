@@ -6,7 +6,7 @@
 {% block content %}
 <ul>
 {% for entry in category.entry_set.all %}
-    <li><a href="{% url 'blog:detail' entry.id %}">{{ entry.title }}</a></li>
+    <li><a href="{% url 'blog:detail' entry.slug %}">{{ entry.title }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
